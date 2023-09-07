@@ -28,18 +28,11 @@ const validators = {
 function Login(props) {
   //Стейты импутов
   const [formValue, setFormValue] = useState({
-    name: '',
     email: '',
     password: ''
   });
   //Отслеживание ошибок валидации
   const [errors, setErrors] = useState({
-    name: {
-      required: true,
-      minLength: true,
-      maxLength: true,
-      isName: true
-    },
     email: {
       required: true,
       isEmail: true

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Navigation/Navigation.css';
 import { useState } from 'react';
-import { Link, Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import { Link, Route, Routes, useLocation, Navigate, NavLink } from 'react-router-dom';
 import burgerIconWhite from '../../images/burger__button_white.svg';
 import burgerIcon from '../../images/burger_icon.svg';
 import BurgerMenu from './BurgerMenu';
@@ -14,6 +14,16 @@ function Navigation(props) {
   function setMenu() {
     setMobile(!mobile);
   }
+  let headerLinkClass = 'header__link header__link_black';
+  if (mobile) {
+    //  конкатенировать классы навигации
+    headerLinkClass += ' header__link_active';
+  } else if (!mobile && window.location.pathname === !'/saved-movies') {
+    headerLinkClass += ' header__link_black';
+  } else if (!mobile && window.location.pathname === '/saved-movies') {
+    headerLinkClass += ' header__link_black ';
+  }
+
   if (location.pathname === '/' && !user) {
     return (
       <nav className="header__container">
@@ -149,26 +159,33 @@ function Navigation(props) {
                   >
                     Главная
                   </Link>
-                  <Link
+                  <NavLink
                     to="/movies"
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_black']
+                      headerLinkClass
+                      // mobile
+                      //   ? ['header__link', 'header__link_active'].join(' ')
+                      //   : ['header__link header__link_black']
                     }
                   >
                     Фильмы
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/saved-movies"
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_black']
+                      headerLinkClass
+                      // mobile
+                      //   ? ['header__link', 'header__link_active'].join(' ')
+                      //   : ['header__link header__link_black']
+
+                      //   ({ isActive }) =>
+                      // !mobile && isActive && window.location.pathname === '/saved-movies'
+                      //   ? 'header__link header__link_black chosen'
+                      //   : 'header__link header__link_black'
                     }
                   >
                     Сохраненный фильмы
-                  </Link>
+                  </NavLink>
                   <Link
                     to="/profile"
                     className={
