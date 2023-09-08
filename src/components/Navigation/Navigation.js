@@ -26,39 +26,44 @@ function Navigation(props) {
 
   if (location.pathname === '/' && !user) {
     return (
-      <nav className="header__container">
-        <BurgerMenu onClick={setMenu} icon={burgerIconWhite} mobile={mobile}></BurgerMenu>
+      <nav className="header__main-container">
+        {/* <BurgerMenu onClick={setMenu} icon={burgerIconWhite} mobile={mobile}></BurgerMenu> */}
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <div className={mobile ? ['header__overlay', 'header_open'].join(' ') : ['']}></div>
+                {/* <div className={mobile ? ['header__overlay', 'header_open'].join(' ') : ['']}></div> */}
                 <ul
-                  className={
-                    mobile
-                      ? ['header__wrapper', 'header_open'].join(' ')
-                      : ['header__wrapper header__wrapper_main']
-                  }
+                  className="header__main-wrapper"
+                  // {
+                  //   // mobile
+                  //   //   ? ['header__wrapper', 'header_open'].join(' ')
+                  //   //   : ['header__wrapper header__wrapper_main']
+                  // }
                 >
                   <Link
                     to="/signup"
-                    className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_wh']
-                    }
+                    className="header__main-link header__link_wh"
+                    // {
+                    //
+                    //   // mobile
+                    //   //   ? ['header__link', 'header__link_active'].join(' ')
+                    //   //   : ['header__link header__link_wh']
+                    // }
                   >
                     Регистрация
                   </Link>
 
                   <Link
                     to="/signin"
-                    className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link', 'header__link_green'].join(' ')
-                    }
+                    className="header__main-link header__link_green"
+                    // {
+                    //
+                    //   // mobile
+                    //   //   ? ['header__link', 'header__link_active'].join(' ')
+                    //   //   : ['header__link', 'header__link_green'].join(' ')
+                    // }
                   >
                     Войти
                   </Link>
@@ -159,31 +164,10 @@ function Navigation(props) {
                   >
                     Главная
                   </Link>
-                  <NavLink
-                    to="/movies"
-                    className={
-                      headerLinkClass
-                      // mobile
-                      //   ? ['header__link', 'header__link_active'].join(' ')
-                      //   : ['header__link header__link_black']
-                    }
-                  >
+                  <NavLink to="/movies" className={headerLinkClass}>
                     Фильмы
                   </NavLink>
-                  <NavLink
-                    to="/saved-movies"
-                    className={
-                      headerLinkClass
-                      // mobile
-                      //   ? ['header__link', 'header__link_active'].join(' ')
-                      //   : ['header__link header__link_black']
-
-                      //   ({ isActive }) =>
-                      // !mobile && isActive && window.location.pathname === '/saved-movies'
-                      //   ? 'header__link header__link_black chosen'
-                      //   : 'header__link header__link_black'
-                    }
-                  >
+                  <NavLink to="/saved-movies" className={headerLinkClass}>
                     Сохраненный фильмы
                   </NavLink>
                   <Link

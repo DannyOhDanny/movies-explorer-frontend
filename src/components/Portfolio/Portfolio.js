@@ -11,33 +11,33 @@ function Portfolio(props) {
             className="portfolio__link"
             href="https://github.com/DannyOhDanny/how-to-learn"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             Статичный сайт
+            <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
           </a>
-          <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
         </li>
         <li className="portfolio__box">
           <a
             className="portfolio__link"
             href="https://github.com/DannyOhDanny/russian-travel"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             Адаптивный сайт
+            <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
           </a>
-          <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
         </li>
         <li className="portfolio__box">
           <a
             className="portfolio__link"
             href="https://github.com/DannyOhDanny/react-mesto-api-full-gha"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             Одностраничное приложение
+            <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
           </a>
-          <img className="portfolio__arrow" src={arrow} alt="arrow"></img>
         </li>
       </ul>
     </section>

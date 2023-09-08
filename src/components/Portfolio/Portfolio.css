@@ -53,6 +53,9 @@
   letter-spacing: -0.04em;
   text-align: left;
   opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .portfolio__link:hover {
