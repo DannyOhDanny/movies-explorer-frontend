@@ -134,7 +134,7 @@ function Navigation(props) {
       </nav>
     );
   }
-  if ((location.pathname === '/movies' || '/saved-movies' || '/profile') && user) {
+  if (location.pathname === '/movies' || '/saved-movies' || '/profile') {
     return (
       <nav className="header__container">
         <BurgerMenu onClick={setMenu} icon={burgerIcon} mobile={mobile}></BurgerMenu>
