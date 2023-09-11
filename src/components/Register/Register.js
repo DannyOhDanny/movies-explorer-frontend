@@ -126,109 +126,111 @@ function Register(props) {
       onSubmit={handleSubmit}
       isDisabled={isSubmitDisabled}
     >
-      <div className="input__container">
-        <label className="input__label">Имя</label>
-        <input
-          id="name-input"
-          className={isNameValid ? ['input__area', 'input__area_active'].join(' ') : 'input__area'}
-          placeholder="Имя"
-          name="name"
-          type="text"
-          onChange={handleChange}
-          value={formValue.name}
-        ></input>
-      </div>
-      <div className="input__container">
-        <label className="input__label">E-mail</label>
-        <input
-          id="email-input"
-          className={isEmailValid ? ['input__area', 'input__area_active'].join(' ') : 'input__area'}
-          placeholder="email@email.ru"
-          name="email"
-          type="email"
-          onChange={handleChange}
-          value={formValue.email}
-        ></input>
-      </div>
-      <div className="input__container">
-        <label className="input__label">Пароль</label>
-        <input
-          id="password-input"
-          className={
-            isPasswordValid ? ['input__area', 'input__area_active'].join(' ') : 'input__area'
-          }
-          placeholder="Пароль"
-          name="password"
-          type="password"
-          onChange={handleChange}
-          value={formValue.password}
-        ></input>
-        {errors.name.minLength && (
-          <span
+      <div className="form__box">
+        <div className="form__container">
+          <label className="form__label">Имя</label>
+          <input
+            id="name-input"
+            className={isNameValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
+            placeholder="Имя"
+            name="name"
+            type="text"
+            onChange={handleChange}
+            value={formValue.name}
+          ></input>
+        </div>
+        <div className="form__container">
+          <label className="form__label">E-mail</label>
+          <input
+            id="email-input"
+            className={isEmailValid ? ['form__area', 'fomr__area_active'].join(' ') : 'form__area'}
+            placeholder="email@email.ru"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            value={formValue.email}
+          ></input>
+        </div>
+        <div className="form__container">
+          <label className="form__label">Пароль</label>
+          <input
+            id="password-input"
             className={
-              isNameValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
+              isPasswordValid ? ['form__area', 'fomr__area_active'].join(' ') : 'form__area'
             }
-          >
-            Минимальная длина имени: 2 символа
-          </span>
-        )}
-        {errors.name.maxLength && (
-          <span
-            className={
-              isNameValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            {isNameValid && errors.name.maxLength ? 'Минимальная длина имени: 30 символов' : ''}
-          </span>
-        )}
+            placeholder="Пароль"
+            name="password"
+            type="password"
+            onChange={handleChange}
+            value={formValue.password}
+          ></input>
+          {errors.name.minLength && (
+            <span
+              className={
+                isNameValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Минимальная длина имени: 2 символа
+            </span>
+          )}
+          {errors.name.maxLength && (
+            <span
+              className={
+                isNameValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              {isNameValid && errors.name.maxLength ? 'Минимальная длина имени: 30 символов' : ''}
+            </span>
+          )}
 
-        {errors.name.isName && (
-          <span
-            className={
-              isNameValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Поле должно содержать символы кириллицы или латиницы
-          </span>
-        )}
-        {(errors.email.required || errors.name.required || errors.password.required) && (
-          <span
-            className={
-              errors.email.required || errors.name.required || errors.password.required
-                ? ['input__error', 'input__error_active'].join(' ')
-                : ['input__error']
-            }
-          >
-            Обязательное поле
-          </span>
-        )}
-        {errors.email.isEmail && (
-          <span
-            className={
-              isEmailValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Укажите электронный адрес в правильном формате
-          </span>
-        )}
-        {errors.password.minLength && (
-          <span
-            className={
-              isPasswordValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Минимальная длина пароля: 8 символов
-          </span>
-        )}
-        {errors.password.containNumbers && (
-          <span
-            className={
-              isPasswordValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Пароль должен состоять из цифр
-          </span>
-        )}
+          {errors.name.isName && (
+            <span
+              className={
+                isNameValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Поле должно содержать символы кириллицы или латиницы
+            </span>
+          )}
+          {(errors.email.required || errors.name.required || errors.password.required) && (
+            <span
+              className={
+                errors.email.required || errors.name.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
+            </span>
+          )}
+          {errors.email.isEmail && (
+            <span
+              className={
+                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Укажите электронный адрес в правильном формате
+            </span>
+          )}
+          {errors.password.minLength && (
+            <span
+              className={
+                isPasswordValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Минимальная длина пароля: 8 символов
+            </span>
+          )}
+          {errors.password.containNumbers && (
+            <span
+              className={
+                isPasswordValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Пароль должен состоять из цифр
+            </span>
+          )}
+        </div>
       </div>
     </Form>
   );

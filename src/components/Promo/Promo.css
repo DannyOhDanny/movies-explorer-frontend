@@ -1,6 +1,6 @@
 .promo {
   margin: 0 auto;
-  padding: 25px 0;
+  padding: 0;
   display: flex;
   max-width: 1280px;
   min-height: 524px;
@@ -12,8 +12,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-
 .promo__title {
+  margin: 0;
+  padding: 184px 0 224px 0;
   font-family: 'Inter', 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 50px;
@@ -29,7 +30,10 @@
 
 @media screen and (max-width: 768px) {
   .promo {
-    min-height: 734px;
+    min-height: 784px;
+  }
+  .promo__title {
+    padding: 326px 0 342px 0;
   }
 }
 
@@ -39,7 +43,8 @@
     min-height: 570px;
   }
   .promo__title {
-    padding: 0;
+    padding: 207px 0 246px 0;
+
     font-size: 31px;
     line-height: 39px;
     max-width: 300px;

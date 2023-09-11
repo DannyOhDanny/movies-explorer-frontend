@@ -94,11 +94,12 @@
 
   .form__title {
     margin: 0 auto;
+    padding: 50px 0 80px 0;
   }
 
   .form__submit-btn {
     padding: 13px 0 15px 0;
-    margin: 157px auto 0 auto;
+    margin: 180px auto 0 auto;
     font-size: 12px;
     line-height: 15px;
     max-width: 260px;

@@ -4,11 +4,11 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
   return (
-    <section id="movies-list" className="movies-list">
+    <div id="movies-list" className="movies-list">
       {props.movies.map(movie => {
         return <MoviesCard movie={movie} key={movie.movieId} />;
       })}
-    </section>
+    </div>
   );
 }
 

@@ -13,7 +13,7 @@ function SavedMovies(props) {
       <SearchForm></SearchForm>
       <FilterCheckbox></FilterCheckbox>
       <MoviesCardList movies={props.movies}></MoviesCardList>
-      <div className="saved-movies__container"></div>
+      <div className="saved-movies"></div>
       <Footer></Footer>
     </>
   );

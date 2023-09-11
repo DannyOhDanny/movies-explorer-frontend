@@ -98,70 +98,72 @@ function Login(props) {
       onSubmit={handleSubmit}
       isDisabled={isSubmitDisabled}
     >
-      <div className="input__container">
-        <label className="input__label">E-mail</label>
-        <input
-          id="email-input"
-          className={isEmailValid ? ['input__area', 'input__area_active'].join(' ') : 'input__area'}
-          placeholder="email@email.ru"
-          name="email"
-          type="email"
-          onChange={handleChange}
-          value={formValue.email}
-        ></input>
-      </div>
-      <div className="input__container">
-        <label className="input__label">Пароль</label>
-        <input
-          id="password-input"
-          className={
-            isPasswordValid ? ['input__area', 'input__area_active'].join(' ') : 'input__area'
-          }
-          placeholder="пароль"
-          name="password"
-          type="password"
-          onChange={handleChange}
-          value={formValue.password}
-        ></input>
+      <div className="form__box">
+        <div className="form__container">
+          <label className="form__label">E-mail</label>
+          <input
+            id="email-input"
+            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
+            placeholder="email@email.ru"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            value={formValue.email}
+          ></input>
+        </div>
+        <div className="form__container">
+          <label className="form__label">Пароль</label>
+          <input
+            id="password-input"
+            className={
+              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
+            }
+            placeholder="пароль"
+            name="password"
+            type="password"
+            onChange={handleChange}
+            value={formValue.password}
+          ></input>
 
-        {(errors.email.required || errors.password.required) && (
-          <span
-            className={
-              errors.email.required || errors.password.required
-                ? ['input__error', 'input__error_active'].join(' ')
-                : ['input__error']
-            }
-          >
-            Обязательное поле
-          </span>
-        )}
-        {errors.email.isEmail && (
-          <span
-            className={
-              isEmailValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Укажите электронный адрес в правильном формате
-          </span>
-        )}
-        {errors.password.minLength && (
-          <span
-            className={
-              isPasswordValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Минимальная длина пароля: 8 символов
-          </span>
-        )}
-        {errors.password.containNumbers && (
-          <span
-            className={
-              isPasswordValid ? ['input__error', 'input__error_active'].join(' ') : ['input__error']
-            }
-          >
-            Пароль должен состоять из цифр
-          </span>
-        )}
+          {(errors.email.required || errors.password.required) && (
+            <span
+              className={
+                errors.email.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
+            </span>
+          )}
+          {errors.email.isEmail && (
+            <span
+              className={
+                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Укажите электронный адрес в правильном формате
+            </span>
+          )}
+          {errors.password.minLength && (
+            <span
+              className={
+                isPasswordValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Минимальная длина пароля: 8 символов
+            </span>
+          )}
+          {errors.password.containNumbers && (
+            <span
+              className={
+                isPasswordValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Пароль должен состоять из цифр
+            </span>
+          )}
+        </div>
       </div>
     </Form>
   );

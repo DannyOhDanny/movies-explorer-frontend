@@ -1,14 +1,14 @@
 import React from 'react';
-import '../Navigation/Navigation.css';
+import './BurgerMenu.css';
 import btnClose from '../../images/btnClose.svg';
 
 function BurgerMenu(props) {
   return (
     <img
       onClick={props.onClick}
-      className="mobile_btn"
+      className="header__mobile-btn"
       src={props.mobile ? btnClose : props.icon}
-      alt="burger-icon888"
+      alt="burger-icon"
     ></img>
   );
 }

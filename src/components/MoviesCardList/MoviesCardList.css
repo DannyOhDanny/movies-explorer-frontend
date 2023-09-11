@@ -1,5 +1,5 @@
 .movies-list {
-  margin: 70px auto 30px auto;
+  margin: 80px auto 30px auto;
   padding: 0 70px;
   display: grid;
   place-content: center;
@@ -12,8 +12,7 @@
 
 @media screen and (max-width: 768px) {
   .movies-list {
-    margin: 70px 30px 30px 30px;
-
+    margin: 80px 30px 30px 30px;
     padding: 0;
     width: 100%;
     grid-template-columns: repeat(auto-fill, 339px);
@@ -24,8 +23,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 476px) {
   .movies-list {
-    margin: 40px auto;
-
+    margin: 50px auto;
     width: 100%;
     grid-template-columns: repeat(auto-fill, 300px);
     row-gap: 20px;

@@ -91,10 +91,7 @@
     padding: 70px 0;
   }
   .portfolio__box-wrapper {
-    margin: 0 auto;
-    max-width: 292px;
-    width: 100%;
-    align-self: center;
+    margin: 0 15px;
   }
 
   .portfolio__title {
@@ -105,5 +102,10 @@
   .portfolio__link {
     font-size: 18px;
     line-height: 28px;
+    align-items: baseline;
+  }
+  .portfolio__arrow {
+    width: 10px;
+    height: 10px;
   }
 }

@@ -52,7 +52,7 @@
   text-align: left;
 }
 
-.about-me__paragraph {
+.about-me__paragraphs {
   font-family: 'Inter', 'Roboto', 'sans-serif';
   margin: 0;
   padding: 26px 100px 0 0;
@@ -60,6 +60,11 @@
   font-weight: 400;
   line-height: 22px;
   text-align: left;
+}
+
+.about-me__paragraph {
+  padding: 20px 0 0 0;
+  margin: 0;
 }
 
 .about-me__link {
@@ -102,14 +107,23 @@
   }
   .about-me__subtitle {
     font-size: 40px;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: -0.04em;
+    text-align: left;
   }
   .about-me__summary {
     font-size: 12px;
     padding: 16px 0 0 0;
   }
-  .about-me__paragraph {
+  .about-me__paragraphs {
     font-size: 12px;
-    padding: 20px 49px 0 0;
+    padding: 0 49px 0 0;
+  }
+
+  .about-me__paragraph {
+    padding: 20px 0 0 0;
   }
   .about-me__photo {
     max-width: 255px;
@@ -134,7 +148,7 @@
     padding: 0;
   }
   .about-me__title {
-    margin: 0 18px;
+    margin: 60px 18px 0 18px;
     padding-bottom: 28px;
     font-size: 18px;
     line-height: 22px;
@@ -171,6 +185,6 @@
     line-height: 16px;
   }
   .about-me__link {
-    margin: 40px 0 0 0;
+    margin: 87px 0 0 0;
   }
 }

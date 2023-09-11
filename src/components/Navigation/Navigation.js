@@ -5,6 +5,7 @@ import { Link, Route, Routes, useLocation, Navigate, NavLink } from 'react-route
 import burgerIconWhite from '../../images/burger__button_white.svg';
 import burgerIcon from '../../images/burger_icon.svg';
 import BurgerMenu from './BurgerMenu';
+import HeaderMain from './HeaderMain';
 
 function Navigation(props) {
   const [mobile, setMobile] = useState(false);
@@ -25,55 +26,7 @@ function Navigation(props) {
   }
 
   if (location.pathname === '/' && !user) {
-    return (
-      <nav className="header__main-container">
-        {/* <BurgerMenu onClick={setMenu} icon={burgerIconWhite} mobile={mobile}></BurgerMenu> */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                {/* <div className={mobile ? ['header__overlay', 'header_open'].join(' ') : ['']}></div> */}
-                <ul
-                  className="header__main-wrapper"
-                  // {
-                  //   // mobile
-                  //   //   ? ['header__wrapper', 'header_open'].join(' ')
-                  //   //   : ['header__wrapper header__wrapper_main']
-                  // }
-                >
-                  <Link
-                    to="/signup"
-                    className="header__main-link header__link_wh"
-                    // {
-                    //
-                    //   // mobile
-                    //   //   ? ['header__link', 'header__link_active'].join(' ')
-                    //   //   : ['header__link header__link_wh']
-                    // }
-                  >
-                    Регистрация
-                  </Link>
-
-                  <Link
-                    to="/signin"
-                    className="header__main-link header__link_green"
-                    // {
-                    //
-                    //   // mobile
-                    //   //   ? ['header__link', 'header__link_active'].join(' ')
-                    //   //   : ['header__link', 'header__link_green'].join(' ')
-                    // }
-                  >
-                    Войти
-                  </Link>
-                </ul>
-              </>
-            }
-          />
-        </Routes>
-      </nav>
-    );
+    return <HeaderMain></HeaderMain>;
   }
   if (location.pathname === '/' && user) {
     return (
@@ -84,53 +37,82 @@ function Navigation(props) {
             path="/"
             element={
               <>
-                <div className={mobile ? ['header__overlay', 'header_open'].join(' ') : ['']}></div>
+                <div
+                  className={mobile ? ['header__overlay', 'header__wrapper_open'].join(' ') : ['']}
+                ></div>
                 <ul
                   className={
-                    mobile ? ['header__wrapper', 'header_open'].join(' ') : ['header__wrapper']
+                    mobile
+                      ? ['header__wrapper', 'header__wrapper_open'].join(' ')
+                      : ['header__wrapper']
                   }
                 >
-                  <Link
-                    to="/"
+                  <li
                     className={
                       mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link_hidden']
+                        ? ['header__list', 'header__list_active'].join(' ')
+                        : ['header__list header__list_hidden']
                     }
                   >
-                    Главная
-                  </Link>
-
-                  <Link
-                    to="/movies"
+                    <Link
+                      to="/"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_active'].join(' ')
+                          : ['header__link header__link_hidden']
+                      }
+                    >
+                      Главная
+                    </Link>
+                  </li>
+                  <li
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_wh']
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list']
                     }
                   >
-                    Фильмы
-                  </Link>
-                  <Link
-                    to="/saved-movies"
+                    <Link
+                      to="/movies"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_active'].join(' ')
+                          : ['header__link header__link_wh']
+                      }
+                    >
+                      Фильмы
+                    </Link>
+                  </li>
+                  <li
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_wh']
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list']
                     }
                   >
-                    Сохраненный фильмы
-                  </Link>
-                  <Link
-                    to="/profile"
+                    <Link
+                      to="/saved-movies"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_active'].join(' ')
+                          : ['header__link header__link_wh']
+                      }
+                    >
+                      Сохраненный фильмы
+                    </Link>
+                  </li>
+                  <li
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_gray']
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list ']
                     }
                   >
-                    Аккаунт
-                  </Link>
+                    <Link
+                      to="/profile"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_gray_active'].join(' ')
+                          : ['header__link header__link_gray']
+                      }
+                    >
+                      Аккаунт
+                    </Link>
+                  </li>
                 </ul>
               </>
             }
@@ -148,38 +130,63 @@ function Navigation(props) {
             path="/"
             element={
               <>
-                <div className={mobile ? ['header__overlay', 'header_open'].join(' ') : ['']}></div>
+                <div
+                  className={mobile ? ['header__overlay', 'header__wrapper_open'].join(' ') : ['']}
+                ></div>
                 <ul
                   className={
-                    mobile ? ['header__wrapper', 'header_open'].join(' ') : ['header__wrapper']
+                    mobile
+                      ? ['header__wrapper', 'header__wrapper_open'].join(' ')
+                      : ['header__wrapper']
                   }
                 >
-                  <Link
-                    to="/"
+                  <li>
+                    <Link
+                      to="/"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_active'].join(' ')
+                          : ['header__link header__link_hidden']
+                      }
+                    >
+                      Главная
+                    </Link>
+                  </li>
+                  <li
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link_hidden']
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list ']
                     }
                   >
-                    Главная
-                  </Link>
-                  <NavLink to="/movies" className={headerLinkClass}>
-                    Фильмы
-                  </NavLink>
-                  <NavLink to="/saved-movies" className={headerLinkClass}>
-                    Сохраненный фильмы
-                  </NavLink>
-                  <Link
-                    to="/profile"
+                    <NavLink to="/movies" className={headerLinkClass}>
+                      Фильмы
+                    </NavLink>
+                  </li>
+                  <li
                     className={
-                      mobile
-                        ? ['header__link', 'header__link_active'].join(' ')
-                        : ['header__link header__link_gray']
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list ']
                     }
                   >
-                    Аккаунт
-                  </Link>
+                    <NavLink to="/saved-movies" className={headerLinkClass}>
+                      Сохраненный фильмы
+                    </NavLink>
+                  </li>
+
+                  <li
+                    className={
+                      mobile ? ['header__list', 'header__list_active'].join(' ') : ['header__list ']
+                    }
+                  >
+                    <Link
+                      to="/profile"
+                      className={
+                        mobile
+                          ? ['header__link', 'header__link_gray_active'].join(' ')
+                          : ['header__link header__link_gray']
+                      }
+                    >
+                      Аккаунт
+                    </Link>
+                  </li>
                 </ul>
               </>
             }

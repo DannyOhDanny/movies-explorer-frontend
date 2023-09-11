@@ -28,9 +28,7 @@ function MoviesCard(props) {
             type="button"
           ></button>
         </div>
-        <p className="movie-card__time" aria-label="duration">
-          {props.movie.duration}
-        </p>
+        <p className="movie-card__time">{props.movie.duration}</p>
       </div>
     </article>
   );
