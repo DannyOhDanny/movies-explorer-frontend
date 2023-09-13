@@ -1,0 +1,71 @@
+.page-404 {
+  margin: 0;
+  padding: 190px 0 60px 0;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 400px;
+  width: 100%;
+  min-height: 100%;
+}
+.page-404__title {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169.43px;
+  color: #000000;
+}
+.page-404__subtitle {
+  margin: 0;
+  padding: 5px 0 0 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.36px;
+  color: #000000;
+}
+.page-404__button {
+  margin: 185px 0 0 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 16.94px;
+  color: #ff6838;
+  border-style: none;
+  background-color: white;
+  opacity: 1;
+}
+
+.page-404__button:hover {
+  opacity: 0.6;
+  transform: 3s opacity ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .page-404 {
+    padding: 408px 0 222px 0;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 476px) {
+  .page-404 {
+    padding: 329px 0 30px 0;
+    min-width: 300px;
+    width: 100%;
+  }
+  .page-404__title {
+    font-size: 80px;
+    line-height: 97px;
+  }
+  .page-404__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+    padding: 10px 0 0 0;
+  }
+  .page-404__button {
+    margin: 284px 0 0 0;
+  }
+}
