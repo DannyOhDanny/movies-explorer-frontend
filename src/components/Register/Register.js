@@ -143,7 +143,7 @@ function Register(props) {
           <label className="form__label">E-mail</label>
           <input
             id="email-input"
-            className={isEmailValid ? ['form__area', 'fomr__area_active'].join(' ') : 'form__area'}
+            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
             placeholder="email@email.ru"
             name="email"
             type="email"
@@ -156,7 +156,7 @@ function Register(props) {
           <input
             id="password-input"
             className={
-              isPasswordValid ? ['form__area', 'fomr__area_active'].join(' ') : 'form__area'
+              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
             }
             placeholder="Пароль"
             name="password"
