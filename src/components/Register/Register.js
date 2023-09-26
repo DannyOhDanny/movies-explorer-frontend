@@ -2,6 +2,7 @@ import './Register.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Form from '../Form/Form';
+
 // Правила валидации импутов
 const validators = {
   name: {
@@ -40,6 +41,9 @@ const validators = {
 };
 
 function Register(props) {
+  //Стейты сообщений
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [info, setInfo] = useState(null);
   //Стейты импутов
   const [formValue, setFormValue] = useState({
     name: '',
@@ -95,8 +99,6 @@ function Register(props) {
         email: emailValidationResult,
         password: passwordValidationResult
       });
-
-      // console.log(emailValidationResult, passwordValidationResult, nameValidationResult);
     },
     //зависимости
     [formValue, setErrors]
@@ -113,12 +115,12 @@ function Register(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formValue);
+    props.onRegister(formValue, setErrorMessage, setInfo);
   };
 
   return (
     <Form
-      greetingTxt={'Добро пожаловать!'}
+      greetingTxt={`Добро пожаловать${info ? `, ${formValue.name}` : ''}!`}
       btnName={'Зарегистрироваться'}
       actionTxt={'Уже зарегистрированы?'}
       btnName2={'Войти'}
@@ -131,38 +133,13 @@ function Register(props) {
           <label className="form__label">Имя</label>
           <input
             id="name-input"
-            className={isNameValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
-            placeholder="Имя"
             name="name"
             type="text"
+            placeholder="Имя"
+            className={isNameValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
             onChange={handleChange}
             value={formValue.name}
-          ></input>
-        </div>
-        <div className="form__container">
-          <label className="form__label">E-mail</label>
-          <input
-            id="email-input"
-            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
-            placeholder="email@email.ru"
-            name="email"
-            type="email"
-            onChange={handleChange}
-            value={formValue.email}
-          ></input>
-        </div>
-        <div className="form__container">
-          <label className="form__label">Пароль</label>
-          <input
-            id="password-input"
-            className={
-              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
-            }
-            placeholder="Пароль"
-            name="password"
-            type="password"
-            onChange={handleChange}
-            value={formValue.password}
+            disabled={props.isLoading ? true : false}
           ></input>
           {errors.name.minLength && (
             <span
@@ -192,6 +169,20 @@ function Register(props) {
               Поле должно содержать символы кириллицы или латиницы
             </span>
           )}
+        </div>
+
+        <div className="form__container">
+          <label className="form__label">E-mail</label>
+          <input
+            id="email-input"
+            name="email"
+            type="email"
+            placeholder="email@email.ru"
+            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
+            onChange={handleChange}
+            value={formValue.email}
+            disabled={props.isLoading ? true : false}
+          ></input>
           {(errors.email.required || errors.name.required || errors.password.required) && (
             <span
               className={
@@ -212,6 +203,22 @@ function Register(props) {
               Укажите электронный адрес в правильном формате
             </span>
           )}
+        </div>
+        <div className="form__container">
+          <label className="form__label">Пароль</label>
+          <input
+            id="password-input"
+            name="password"
+            type="password"
+            placeholder="Пароль"
+            className={
+              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
+            }
+            onChange={handleChange}
+            value={formValue.password}
+            disabled={props.isLoading ? true : false}
+          ></input>
+
           {errors.password.minLength && (
             <span
               className={
@@ -230,6 +237,20 @@ function Register(props) {
               Пароль должен состоять из цифр
             </span>
           )}
+          <span
+            className={
+              errorMessage ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {errorMessage}
+          </span>
+          <span
+            className={
+              info ? ['form__error', 'form__error_active_green'].join(' ') : ['form__error']
+            }
+          >
+            {info}
+          </span>
         </div>
       </div>
     </Form>

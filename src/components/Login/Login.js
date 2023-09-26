@@ -26,6 +26,9 @@ const validators = {
   }
 };
 function Login(props) {
+  // Стейты формы
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [info, setInfo] = useState(null);
   //Стейты импутов
   const [formValue, setFormValue] = useState({
     email: '',
@@ -68,8 +71,6 @@ function Login(props) {
         email: emailValidationResult,
         password: passwordValidationResult
       });
-
-      // console.log(emailValidationResult, passwordValidationResult, nameValidationResult);
     },
     //зависимости
     [formValue, setErrors]
@@ -85,7 +86,7 @@ function Login(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formValue);
+    props.handleLogin(formValue, props.onLogin, setErrorMessage, setInfo);
   };
 
   return (
@@ -103,28 +104,23 @@ function Login(props) {
           <label className="form__label">E-mail</label>
           <input
             id="email-input"
-            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
-            placeholder="email@email.ru"
             name="email"
             type="email"
+            placeholder="email@email.ru"
+            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
             onChange={handleChange}
             value={formValue.email}
+            disabled={props.isLoading ? true : false}
           ></input>
-        </div>
-        <div className="form__container">
-          <label className="form__label">Пароль</label>
-          <input
-            id="password-input"
-            className={
-              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
-            }
-            placeholder="пароль"
-            name="password"
-            type="password"
-            onChange={handleChange}
-            value={formValue.password}
-          ></input>
-
+          {errors.email.isEmail && (
+            <span
+              className={
+                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Укажите электронный адрес в правильном формате
+            </span>
+          )}
           {(errors.email.required || errors.password.required) && (
             <span
               className={
@@ -136,15 +132,21 @@ function Login(props) {
               Обязательное поле
             </span>
           )}
-          {errors.email.isEmail && (
-            <span
-              className={
-                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
-              }
-            >
-              Укажите электронный адрес в правильном формате
-            </span>
-          )}
+        </div>
+        <div className="form__container">
+          <label className="form__label">Пароль</label>
+          <input
+            id="password-input"
+            name="password"
+            type="password"
+            placeholder="пароль"
+            className={
+              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
+            }
+            onChange={handleChange}
+            value={formValue.password}
+            disabled={props.isLoading ? true : false}
+          ></input>
           {errors.password.minLength && (
             <span
               className={
@@ -163,6 +165,20 @@ function Login(props) {
               Пароль должен состоять из цифр
             </span>
           )}
+          <span
+            className={
+              errorMessage ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {errorMessage}
+          </span>
+          <span
+            className={
+              info ? ['form__error', 'form__error_active_green'].join(' ') : ['form__error']
+            }
+          >
+            {info}
+          </span>
         </div>
       </div>
     </Form>

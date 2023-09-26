@@ -4,7 +4,7 @@ import '../Header/Header.css';
 import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
-function Header() {
+function Header(props) {
   const location = useLocation();
 
   if (location.pathname === '/') {

@@ -29,3 +29,20 @@
     row-gap: 20px;
   }
 }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  margin: 70px auto;
+  padding: 0;
+  width: 90%;
+}
+
+.not-found__text {
+  margin: 0 auto;
+  padding: 0;
+  font-weight: 300;
+  font-size: 14px;
+  color: gray;
+  text-align: center;
+}
