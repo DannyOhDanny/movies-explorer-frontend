@@ -35,6 +35,9 @@ function Profile(props) {
       props.onUpdateUser(data, setInfo, setErr);
     } else {
       setInfo('Данные не изменены');
+      setTimeout(() => {
+        setInfo(null);
+      }, 3000);
     }
   }
 
@@ -95,13 +98,15 @@ function Profile(props) {
             ></input>
           </div>
           {errors.email && <span className="profile__error">{errors.email.message}</span>}
-          {err && <span className="profile__error">{err}</span>}
-          {info && (
-            <span className={info ? ['profile__info', 'form__info_green'].join(' ') : ['']}>
-              {info}
-            </span>
-          )}
           {props.errors && isDirty && <span className="profile__error">{props.errors}</span>}
+          {err && <span className="profile__error">{err}</span>}
+          <span
+            className={
+              info ? ['form__error', 'form__error_active_green'].join(' ') : ['form__error']
+            }
+          >
+            {info}
+          </span>
           <button
             type="submit"
             disabled={!isValid && isDirty}

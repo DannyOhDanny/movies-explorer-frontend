@@ -1,3 +1,5 @@
+import { MOVIES_URL, WEB_URL } from './constants';
+
 class MainApi {
   constructor({ url, headers }) {
     this._url = url;
@@ -31,8 +33,8 @@ class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: `https://api.nomoreparties.co${data.image.url}`,
-        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+        image: `${MOVIES_URL}${data.image.url}`,
+        thumbnail: `${MOVIES_URL}${data.image.formats.thumbnail.url}`,
         trailerLink: data.trailerLink,
         movieId: data.id,
         nameRU: data.nameRU,
@@ -115,7 +117,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  url: 'http://localhost:3001',
+  url: WEB_URL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'

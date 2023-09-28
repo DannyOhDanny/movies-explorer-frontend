@@ -124,9 +124,9 @@ function Register(props) {
       btnName={'Зарегистрироваться'}
       actionTxt={'Уже зарегистрированы?'}
       btnName2={'Войти'}
-      path={'/signin'}
       onSubmit={handleSubmit}
       isDisabled={isSubmitDisabled}
+      path={'/signin'}
     >
       <div className="form__box">
         <div className="form__container">
@@ -169,6 +169,17 @@ function Register(props) {
               Поле должно содержать символы кириллицы или латиницы
             </span>
           )}
+          {errors.name.required && (
+            <span
+              className={
+                errors.email.required || errors.name.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
+            </span>
+          )}
         </div>
 
         <div className="form__container">
@@ -183,7 +194,7 @@ function Register(props) {
             value={formValue.email}
             disabled={props.isLoading ? true : false}
           ></input>
-          {(errors.email.required || errors.name.required || errors.password.required) && (
+          {errors.email.required && (
             <span
               className={
                 errors.email.required || errors.name.required || errors.password.required
@@ -235,6 +246,17 @@ function Register(props) {
               }
             >
               Пароль должен состоять из цифр
+            </span>
+          )}
+          {errors.password.required && (
+            <span
+              className={
+                errors.email.required || errors.name.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
             </span>
           )}
           <span

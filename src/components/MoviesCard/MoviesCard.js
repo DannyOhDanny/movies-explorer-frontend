@@ -1,5 +1,5 @@
 import './MoviesCard.css';
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -7,30 +7,47 @@ function MoviesCard(props) {
   const user = useContext(CurrentUserContext);
   const location = useLocation();
   const [isClicked, setIsClicked] = useState(false);
-  // Лайк сохраненного фильма
-  let isLiked;
-  if (location.pathname === '/movies') {
-    isLiked = props.savedMovies.some(
-      i => i.movieId === props.movie.id && i.owner === user.currentUser._id
-    );
-  }
+  const [isLiked, setIsLiked] = useState('');
+
+  useEffect(() => {
+    if (location.pathname === '/movies') {
+      const isLikeCheck = props.savedMovieList.some(
+        i => i.movieId === props.movie.id && i.owner === user.currentUser._id
+      );
+      if (isLikeCheck) {
+        props.allMovies.forEach(element => setIsLiked(true));
+      }
+      if (!isLikeCheck) {
+        props.allMovies.forEach(element => setIsLiked(false));
+      }
+    }
+  }, [setIsLiked, setIsClicked]);
+
   // Обработка клика
-  function handleClick(e) {
-    if (!isLiked) {
-      props.onMovieClick(props.movie);
-      setIsClicked(true);
+  function handleClick() {
+    if ((!isLiked && !isClicked) || (!isLiked && isClicked)) {
+      const movieToSave = props.savedMovieList.some(
+        el => el.movieId === props.movie.id || el.nameRU === props.movie.nameRU
+      );
+      if (movieToSave === false || movieToSave === undefined) {
+        props.onMovieClick(props.movie, setIsLiked, setIsClicked);
+      }
     }
-    if (isLiked) {
-      const movieToDelete = props.savedMovies.find(el => el.movieId === props.movie.id);
-      props.onMovieDelete(movieToDelete ? movieToDelete._id : '');
-      setIsClicked(false);
+    if ((isLiked && !isClicked) || (isLiked && isClicked)) {
+      const movieToDelete = props.savedMovieList.find(
+        el => el.movieId === props.movie.id || el.nameRU === props.movie.nameRU
+      );
+      if (movieToDelete) {
+        props.onMovieDelete(movieToDelete._id, setIsLiked, setIsClicked);
+      }
     }
   }
+
   // Удаление сохраненного фильма
   function handleDelete() {
     props.onMovieDelete(props.movie._id);
   }
-  // Конвертер минуты в часы
+  // Конвертер минут в часы
   function getTimeFromMins(duration) {
     let hours = Math.trunc(duration / 60);
     let minutes = duration % 60;
@@ -62,11 +79,8 @@ function MoviesCard(props) {
         <div className="movie-card__wrapper">
           <h2 className="movie-card__title">{props.movie.nameRU}</h2>
           <button
-            value={isClicked}
+            value={({ isClicked }, { isLiked })}
             onClick={location.pathname === '/saved-movies' ? handleDelete : handleClick}
-            // onChange={() => {
-            //   setIsClicked(!isClicked);
-            // }}
             className={likeBtnClass}
             aria-label="like"
             type="button"

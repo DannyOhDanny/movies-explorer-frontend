@@ -17,7 +17,7 @@ function Header(props) {
         <a className="header__logo-container" href="#about">
           <img className="header__logo" src={logo} alt="лого" />
         </a>
-        {<Navigation></Navigation>}
+        {<Navigation errors={props.errors} infoMessage={props.infoMessage}></Navigation>}
       </header>
     );
   } else {

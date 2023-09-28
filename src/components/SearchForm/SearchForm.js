@@ -18,7 +18,7 @@ function SearchForm(props) {
     criteriaMode: 'all',
 
     defaultValues: {
-      search_query: ''
+      search_query: props.movieQuery
     }
   });
 
@@ -43,7 +43,6 @@ function SearchForm(props) {
         id="search-form"
       >
         <input
-          value={location.pathname === '/movies' ? props.movieQuery || null : null}
           className="search-form__input"
           placeholder="Фильм"
           type="search"

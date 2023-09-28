@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 function Main(props) {
   return (
     <>
-      <Header></Header>
+      <Header errors={props.errors} infoMessage={props.infoMessage}></Header>
       <main className="main">
         <Promo></Promo>
         <NavTab></NavTab>

@@ -32,7 +32,9 @@
   border-radius: 8px;
   border-style: none;
 }
-
+.form__area:disabled {
+  border: 1px solid #2be080;
+}
 .form__area:last-of-type {
   margin-bottom: 0;
 }

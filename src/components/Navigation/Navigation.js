@@ -27,7 +27,7 @@ function Navigation(props) {
   }
 
   if (location.pathname === '/' && !user.isLoggedIn) {
-    return <HeaderMain></HeaderMain>;
+    return <HeaderMain errors={props.errors} infoMessage={props.infoMessage}></HeaderMain>;
   }
   if (location.pathname === '/' && user.isLoggedIn) {
     return (
@@ -179,8 +179,6 @@ function Navigation(props) {
         </>
       </nav>
     );
-  } else {
-    return <Navigate to="/" />;
   }
 }
 export default Navigation;

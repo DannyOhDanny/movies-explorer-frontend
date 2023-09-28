@@ -17,7 +17,6 @@ function SavedMovies(props) {
         handleSaveSearch={props.handleSaveSearch}
         checkbox={props.checkbox}
         setCheckbox={props.setCheckbox}
-        movies={props.movies}
         errors={props.errors}
         infoMessage={props.infoMessage}
       ></SearchForm>
@@ -30,7 +29,7 @@ function SavedMovies(props) {
       ></FilterCheckbox>
       <MoviesCardList
         movieIsNotFound={props.movieIsNotFound}
-        movies={props.movies}
+        savedMovieList={props.savedMovieList}
         onSaveMovies={props.onSaveMovies}
         onMovieDelete={props.onMovieDelete}
         allMovies={props.allMovies}

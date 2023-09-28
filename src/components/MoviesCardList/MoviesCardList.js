@@ -6,23 +6,21 @@ import ShowMoreButton from '../ShowMoreButton/ShowMoreButton';
 
 function MoviesCardList(props) {
   const location = useLocation();
-
   if (location.pathname === '/movies' && !props.movieIsNotFound) {
     return (
       <>
         <div id="movies-list" className="movies-list">
-          {props.currentMoviePage.map((movie, key, idex) => {
+          {props.currentMoviePage.map((movie, key) => {
             return (
               <MoviesCard
                 onMovieClick={props.onMovieClick}
                 onMovieDelete={props.onMovieDelete}
                 movie={movie}
-                key={movie.id}
-                isSaved={props.isSaved}
-                savedMovies={props.savedMovies}
                 allMovies={props.allMovies}
-                setErrors={props.setErrors}
+                key={movie.id}
                 isLoading={props.isLoading}
+                savedMovieList={props.savedMovieList}
+                setErrors={props.setErrors}
               />
             );
           })}
@@ -35,10 +33,7 @@ function MoviesCardList(props) {
       </>
     );
   }
-  if (
-    (location.pathname === '/movies' || location.pathname === '/saved-movies') &&
-    props.movieIsNotFound
-  ) {
+  if (location.pathname === '/movies' && props.movieIsNotFound) {
     return (
       <div id="not-found" className="not-found">
         <p className="not-found__text">
@@ -51,17 +46,17 @@ function MoviesCardList(props) {
   if (location.pathname === '/saved-movies') {
     const render = () => {
       if (!props.savedQuery && !props.checkbox) {
-        return props.movies.map((movie, key) => {
+        return props.savedMovieList.map((movie, key) => {
           return <MoviesCard movie={movie} key={movie._id} onMovieDelete={props.onMovieDelete} />;
         });
       } else if (!props.savedQuery && props.checkbox) {
-        return props.movies
+        return props.savedMovieList
           .filter(shortMovie => shortMovie.duration <= 40)
           .map((movie, key) => {
             return <MoviesCard movie={movie} key={movie._id} onMovieDelete={props.onMovieDelete} />;
           });
       } else if (props.savedQuery && !props.checkbox) {
-        return props.movies
+        return props.savedMovieList
           .filter(
             movie =>
               movie.nameRU.toLowerCase().includes(props.savedQuery.toLowerCase()) ||
@@ -71,7 +66,7 @@ function MoviesCardList(props) {
             return <MoviesCard movie={movie} key={movie._id} onMovieDelete={props.onMovieDelete} />;
           });
       } else if (props.savedQuery && props.checkbox) {
-        return props.movies
+        return props.savedMovieList
           .filter(
             movie =>
               movie.nameRU.toLowerCase().includes(props.savedQuery.toLowerCase()) ||
@@ -82,7 +77,7 @@ function MoviesCardList(props) {
             return <MoviesCard movie={movie} key={movie._id} onMovieDelete={props.onMovieDelete} />;
           });
       } else {
-        return props.movies.map((movie, key) => {
+        return props.savedMovieList.map((movie, key) => {
           return <MoviesCard movie={movie} key={movie._id} onMovieDelete={props.onMovieDelete} />;
         });
       }

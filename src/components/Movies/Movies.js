@@ -15,27 +15,27 @@ function Movies(props) {
         onSearchQuery={props.handleSearchQuery}
         isChecked={props.isChecked}
         setIsChecked={props.setIsChecked}
+        movieQuery={props.movieQuery}
+        setMovieQuery={props.setMovieQuery}
         errors={props.errors}
         infoMessage={props.infoMessage}
-        movieQuery={props.movieQuery}
       ></SearchForm>
       <FilterCheckbox
+        onSearchQuery={props.handleSearchQuery}
         isChecked={props.isChecked}
         setIsChecked={props.setIsChecked}
-        onSearchQuery={props.handleSearchQuery}
         setMovies={props.setMovies}
         setSavedMovieList={props.setSavedMovieList}
       ></FilterCheckbox>
       <MoviesCardList
         loadMore={props.loadMore}
-        isSaved={props.isSaved}
         onMovieDelete={props.onMovieDelete}
-        movies={props.movies}
+        allMovies={props.allMovies}
         movieIsNotFound={props.movieIsNotFound}
         onMovieClick={props.onMovieClick}
         currentMoviePage={props.currentMoviePage}
         readLess={props.readLess}
-        savedMovies={props.savedMovies}
+        savedMovieList={props.savedMovieList}
         setErrors={props.setErrors}
         isLoading={props.isLoading}
       ></MoviesCardList>

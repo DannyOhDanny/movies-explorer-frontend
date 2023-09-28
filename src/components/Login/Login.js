@@ -2,6 +2,7 @@ import '../Register/Register.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Form from '../Form/Form';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 // Правила валидации импутов
 const validators = {
@@ -29,6 +30,7 @@ function Login(props) {
   // Стейты формы
   const [errorMessage, setErrorMessage] = useState(null);
   const [info, setInfo] = useState(null);
+
   //Стейты импутов
   const [formValue, setFormValue] = useState({
     email: '',
@@ -75,9 +77,11 @@ function Login(props) {
     //зависимости
     [formValue, setErrors]
   );
+
   const isEmailValid = Object.values(errors.email).some(Boolean);
   const isPasswordValid = Object.values(errors.password).some(Boolean);
   const isSubmitDisabled = isPasswordValid || isEmailValid;
+
   //Сохранение значений импутов по event в объект
   const handleChange = e => {
     const { name, value } = e.target;
@@ -86,18 +90,17 @@ function Login(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    props.handleLogin(formValue, props.onLogin, setErrorMessage, setInfo);
+    props.handleLogin(formValue, setErrorMessage, setInfo);
   };
-
   return (
     <Form
       greetingTxt={'Рады видеть!'}
       btnName={'Войти'}
       actionTxt={'Еще не зарегистрированы?'}
       btnName2={'Регистрация'}
-      path={'/signup'}
       onSubmit={handleSubmit}
       isDisabled={isSubmitDisabled}
+      path={'/signup'}
     >
       <div className="form__box">
         <div className="form__container">
@@ -112,15 +115,6 @@ function Login(props) {
             value={formValue.email}
             disabled={props.isLoading ? true : false}
           ></input>
-          {errors.email.isEmail && (
-            <span
-              className={
-                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
-              }
-            >
-              Укажите электронный адрес в правильном формате
-            </span>
-          )}
           {(errors.email.required || errors.password.required) && (
             <span
               className={
@@ -130,6 +124,15 @@ function Login(props) {
               }
             >
               Обязательное поле
+            </span>
+          )}
+          {errors.email.isEmail && (
+            <span
+              className={
+                isEmailValid ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+              }
+            >
+              Укажите электронный адрес в правильном формате
             </span>
           )}
         </div>
@@ -147,6 +150,17 @@ function Login(props) {
             value={formValue.password}
             disabled={props.isLoading ? true : false}
           ></input>
+          {errors.password.required && (
+            <span
+              className={
+                errors.email.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
+            </span>
+          )}
           {errors.password.minLength && (
             <span
               className={
@@ -178,6 +192,15 @@ function Login(props) {
             }
           >
             {info}
+          </span>
+          <span
+            className={
+              props.infoMessage
+                ? ['form__error', 'form__error_active_green'].join(' ')
+                : ['form__error']
+            }
+          >
+            {props.infoMessage}
           </span>
         </div>
       </div>
