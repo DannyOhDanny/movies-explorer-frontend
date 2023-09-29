@@ -218,6 +218,7 @@ function App() {
         .getSavedMovies()
         .then(data => {
           const myFavourites = data.movies.filter(el => el.owner === currentUser._id);
+          console.log(myFavourites, 'fav');
           setSavedMovieList(myFavourites.reverse());
           setTimeout(() => {
             setInfoMessage(data.message);
@@ -289,6 +290,7 @@ function App() {
     if (location.pathname === '/saved-movies') {
       setSavedSearchQuery('');
       setCheckbox(false);
+      setSavedMovieList(savedMovieList);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname === '/saved-movies', location.pathname]);
@@ -494,7 +496,6 @@ function App() {
                 savedQuery={savedSearchQuery}
                 setSavedSearchQuery={setSavedSearchQuery}
                 handleSaveSearch={handleSaveSearch}
-                onSaveMovie={handleSaveMovie}
                 onMovieDelete={handleMovieDelete}
                 checkbox={checkbox}
                 setCheckbox={setCheckbox}

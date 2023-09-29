@@ -30,7 +30,6 @@ function SavedMovies(props) {
       <MoviesCardList
         movieIsNotFound={props.movieIsNotFound}
         savedMovieList={props.savedMovieList}
-        onSaveMovies={props.onSaveMovies}
         onMovieDelete={props.onMovieDelete}
         allMovies={props.allMovies}
         checkbox={props.checkbox}
