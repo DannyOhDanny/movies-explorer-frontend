@@ -26,14 +26,15 @@ function MoviesCard(props) {
 
   // Обработка клика
   function handleClick() {
-    if ((!isLiked && !isClicked) || (!isLiked && isClicked)) {
-      const movieToSave = props.savedMovieList.some(
-        el => el.movieId === props.movie.id || el.nameRU === props.movie.nameRU
-      );
-      if (movieToSave === false || movieToSave === undefined) {
-        props.onMovieClick(props.movie, setIsLiked, setIsClicked);
-      }
+    if (!isLiked && !isClicked) {
+      const movieToSave = props.savedMovieList.find(el => el.movieId === props.movie.id);
+      props.onMovieClick(props.movie, setIsLiked, setIsClicked);
     }
+    if (!isLiked && isClicked) {
+      const movieToSave2 = props.savedMovieList.find(el => el.movie.movieId === props.movie.id);
+      props.onMovieClick(movieToSave2.movie, setIsLiked, setIsClicked);
+    }
+
     if (isLiked && !isClicked) {
       const movieToDelete = props.savedMovieList.find(el => el.movieId === props.movie.id);
       props.onMovieDelete(movieToDelete._id, setIsLiked, setIsClicked);

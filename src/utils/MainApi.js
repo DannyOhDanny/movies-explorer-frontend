@@ -34,7 +34,7 @@ class MainApi {
         year: data.year,
         description: data.description,
         image: `${MOVIES_URL}${data.image.url}`,
-        thumbnail: `${MOVIES_URL}${data.image.formats.thumbnail.url}`,
+        thumbnail: data.thumbnail || `${MOVIES_URL}${data.image.formats.thumbnail.url}`,
         trailerLink: data.trailerLink,
         movieId: data.id,
         nameRU: data.nameRU,
