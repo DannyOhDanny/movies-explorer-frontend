@@ -213,7 +213,7 @@ function App() {
 
   // Отображение сохраненных фильмов
   useEffect(() => {
-    if (location.pathname === '/saved-movies') {
+    if (location.pathname === '/saved-movies' || location.pathname === '/movies') {
       mainApi
         .getSavedMovies()
         .then(data => {
@@ -235,7 +235,7 @@ function App() {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, setSavedMovieList]);
+  }, [location.pathname]);
 
   function handleSaveSearch(query) {
     setSavedSearchQuery(query);
