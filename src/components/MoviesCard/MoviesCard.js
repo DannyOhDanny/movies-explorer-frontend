@@ -6,6 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function MoviesCard(props) {
   const user = useContext(CurrentUserContext);
   const location = useLocation();
+
   const [isClicked, setIsClicked] = useState(false);
   const [isLiked, setIsLiked] = useState('');
 
@@ -33,13 +34,14 @@ function MoviesCard(props) {
         props.onMovieClick(props.movie, setIsLiked, setIsClicked);
       }
     }
-    if ((isLiked && !isClicked) || (isLiked && isClicked)) {
-      const movieToDelete = props.savedMovieList.find(
-        el => el.movieId === props.movie.id || el.nameRU === props.movie.nameRU
-      );
-      if (movieToDelete) {
-        props.onMovieDelete(movieToDelete._id, setIsLiked, setIsClicked);
-      }
+    if (isLiked && !isClicked) {
+      const movieToDelete = props.savedMovieList.find(el => el.movieId === props.movie.id);
+      props.onMovieDelete(movieToDelete._id, setIsLiked, setIsClicked);
+    }
+
+    if (isLiked && isClicked) {
+      const movieToDelete = props.savedMovieList.find(el => el.movie.movieId === props.movie.id);
+      props.onMovieDelete(movieToDelete.movie._id, setIsLiked, setIsClicked);
     }
   }
 
