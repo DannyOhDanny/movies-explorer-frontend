@@ -24,6 +24,8 @@
 
 - Backend: https://api.filmexplorer.nomoredomainsicu.ru
 
+- GitHub pull request: https://github.com/DannyOhDanny/movies-explorer-frontend/pull/10
+
 ## Скрипты
 
 - `npm start` - запуск приложения в режиме разработки и просмотр через браузер [http://localhost:3000](http://localhost:3000)
