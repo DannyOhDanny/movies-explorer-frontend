@@ -12,7 +12,7 @@ function Page404(props) {
       if (props.isLoggedIn) {
         window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname));
       } else {
-        navigate('/');
+        navigate('/', { replace: true });
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,10 +20,10 @@ function Page404(props) {
 
   // Обработка клика с данными из sessionStorage
   const goBack = () => {
-    if (window.sessionStorage.getItem('lastRoute')) {
+    if (props.isLoggedIn) {
       navigate(JSON.parse(window.sessionStorage.getItem('lastRoute')));
     } else {
-      navigate('/');
+      navigate('/', { replace: true });
     }
   };
   return (
