@@ -1,4 +1,4 @@
-import { MOVIES_URL } from './constants';
+import { MOVIES_URL, SERVER_ERR } from './constants';
 
 class Api {
   constructor({ url, headers }) {
@@ -10,8 +10,7 @@ class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(`Ошибка ответа сервера! Код ошибки:${res.status} - ${res.statusText} 
-      `);
+      return Promise.reject(SERVER_ERR);
     }
   }
 

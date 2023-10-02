@@ -2,7 +2,6 @@ import '../Register/Register.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Form from '../Form/Form';
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 // Правила валидации импутов
 const validators = {
@@ -80,7 +79,7 @@ function Login(props) {
 
   const isEmailValid = Object.values(errors.email).some(Boolean);
   const isPasswordValid = Object.values(errors.password).some(Boolean);
-  const isSubmitDisabled = isPasswordValid || isEmailValid;
+  const isSubmitDisabled = isPasswordValid || isEmailValid || props.isLoading;
 
   //Сохранение значений импутов по event в объект
   const handleChange = e => {
@@ -185,6 +184,13 @@ function Login(props) {
             }
           >
             {errorMessage}
+          </span>
+          <span
+            className={
+              props.errors ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {props.errors}
           </span>
           <span
             className={

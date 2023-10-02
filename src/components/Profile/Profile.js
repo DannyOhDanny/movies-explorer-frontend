@@ -1,9 +1,10 @@
 import Header from '../Header/Header';
 import './Profile.css';
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useRef } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useForm } from 'react-hook-form';
 import Preloader from '../Preloader/Preloader';
+import { MSG_NO_UPD } from '../../utils/constants';
 
 function Profile(props) {
   // Стейты формы
@@ -29,12 +30,14 @@ function Profile(props) {
     }
   });
 
+  const isDisabled = (isValid && !isDirty) || props.isLoading;
+
   // Ф-ия сабмита и получения данных из формы
   function onSubmit(data) {
     if (data.name !== user.currentUser.name || data.email !== user.currentUser.email) {
       props.onUpdateUser(data, setInfo, setErr);
     } else {
-      setInfo('Данные не изменены');
+      setInfo(MSG_NO_UPD);
       setTimeout(() => {
         setInfo(null);
       }, 3000);
@@ -60,6 +63,7 @@ function Profile(props) {
               placeholder="Имя"
               defaultValue={user.currentUser.name}
               name="name"
+              type="text"
               {...register('name', {
                 required: 'Поле не может быть пустым',
                 pattern: {
@@ -88,6 +92,7 @@ function Profile(props) {
               placeholder="email@mail.ru"
               defaultValue={user.currentUser.email}
               name="email"
+              type="email"
               {...register('email', {
                 required: 'Поле не может быть пустым',
                 pattern: {
@@ -109,7 +114,7 @@ function Profile(props) {
           </span>
           <button
             type="submit"
-            disabled={!isValid && isDirty}
+            disabled={isDisabled}
             className={isValid & focus ? 'profile__submit-btn' : 'profile__update-btn'}
           >
             {isValid & focus ? 'Сохранить' : 'Редактировать'}

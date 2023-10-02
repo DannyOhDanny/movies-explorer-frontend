@@ -10,7 +10,9 @@ class MainApi {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(res.json());
+      return res.json().then(err => {
+        throw err;
+      });
     }
   }
 

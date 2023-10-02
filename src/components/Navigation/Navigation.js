@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Navigation/Navigation.css';
 import { useState, useContext } from 'react';
-import { Link, useLocation, Navigate, NavLink } from 'react-router-dom';
+import { Link, useLocation, NavLink } from 'react-router-dom';
 import burgerIconWhite from '../../images/burger__button_white.svg';
 import burgerIcon from '../../images/burger_icon.svg';
 import BurgerMenu from './BurgerMenu';

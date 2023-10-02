@@ -25,6 +25,7 @@ function FilterCheckbox(props) {
           <input
             className="filter-box__input"
             type="checkbox"
+            disabled={props.isLoading ? true : false}
             checked={location.pathname === '/movies' ? props.isChecked : props.checkbox}
             onChange={handleChange}
             onClick={

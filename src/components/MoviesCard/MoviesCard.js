@@ -6,9 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function MoviesCard(props) {
   const user = useContext(CurrentUserContext);
   const location = useLocation();
-
-  const [isClicked, setIsClicked] = useState(false);
-  const [isLiked, setIsLiked] = useState('');
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     if (location.pathname === '/movies') {
@@ -18,31 +16,27 @@ function MoviesCard(props) {
       if (isLikeCheck) {
         props.allMovies.forEach(element => setIsLiked(true));
       }
-      if (!isLikeCheck) {
-        props.allMovies.forEach(element => setIsLiked(false));
-      }
     }
-  }, [setIsLiked, setIsClicked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   // Обработка клика
   function handleClick() {
-    if (!isLiked && !isClicked) {
-      const movieToSave = props.savedMovieList.find(el => el.movieId === props.movie.id);
-      props.onMovieClick(props.movie, setIsLiked, setIsClicked);
-    }
-    if (!isLiked && isClicked) {
-      const movieToSave2 = props.savedMovieList.find(el => el.movie.movieId === props.movie.id);
-      props.onMovieClick(movieToSave2.movie, setIsLiked, setIsClicked);
+    if (!isLiked) {
+      const movieToSave = props.savedMovieList.find(
+        el => (el.movie ? el.movie.movieId : el.movieId) === props.movie.id
+      );
+      props.onMovieClick(props.movie || movieToSave.movie, setIsLiked);
     }
 
-    if (isLiked && !isClicked) {
-      const movieToDelete = props.savedMovieList.find(el => el.movieId === props.movie.id);
-      props.onMovieDelete(movieToDelete._id, setIsLiked, setIsClicked);
-    }
-
-    if (isLiked && isClicked) {
-      const movieToDelete = props.savedMovieList.find(el => el.movie.movieId === props.movie.id);
-      props.onMovieDelete(movieToDelete.movie._id, setIsLiked, setIsClicked);
+    if (isLiked) {
+      const movieToDelete = props.savedMovieList.find(
+        el => (el.movie ? el.movie.movieId : el.movieId) === props.movie.id
+      );
+      props.onMovieDelete(
+        movieToDelete.movie ? movieToDelete.movie._id : movieToDelete._id,
+        setIsLiked
+      );
     }
   }
 
@@ -57,7 +51,7 @@ function MoviesCard(props) {
     return `${hours ? hours + 'ч ' : ''}${minutes ? minutes + 'м' : ''}`;
   }
 
-  const likeBtnClass = `movie-card__like ${isClicked || isLiked ? 'movie-card__like_active' : ''}
+  const likeBtnClass = `movie-card__like ${isLiked ? 'movie-card__like_active' : ''}
   ${location.pathname === '/saved-movies' ? 'movie-card__like_cross' : ''}`;
 
   return (
@@ -82,7 +76,7 @@ function MoviesCard(props) {
         <div className="movie-card__wrapper">
           <h2 className="movie-card__title">{props.movie.nameRU}</h2>
           <button
-            value={({ isClicked }, { isLiked })}
+            value={{ isLiked }}
             onClick={location.pathname === '/saved-movies' ? handleDelete : handleClick}
             className={likeBtnClass}
             aria-label="like"

@@ -19,6 +19,7 @@ function SavedMovies(props) {
         setCheckbox={props.setCheckbox}
         errors={props.errors}
         infoMessage={props.infoMessage}
+        isLoading={props.isLoading}
       ></SearchForm>
       <FilterCheckbox
         onSavedSearchQuery={props.handleSavedMoviesSearch}
@@ -26,6 +27,7 @@ function SavedMovies(props) {
         setCheckbox={props.setCheckbox}
         setSavedMovieList={props.setSavedMovieList}
         savedQuery={props.savedQuery}
+        isLoading={props.isLoading}
       ></FilterCheckbox>
       <MoviesCardList
         movieIsNotFound={props.movieIsNotFound}

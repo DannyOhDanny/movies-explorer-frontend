@@ -43,19 +43,20 @@ function SearchForm(props) {
         id="search-form"
       >
         <input
+          disabled={props.isLoading ? true : false}
           className="search-form__input"
           placeholder="Фильм"
           type="search"
           name="search_query"
           {...register('search_query', {
-            required: { value: true, message: 'Введите ключевое слово' },
-            minLength: {
-              value: 2,
-              message: 'Минимальное количество символов: 2'
-            }
+            required: { value: true, message: 'Введите ключевое слово' }
           })}
         ></input>
-        <button className="search-form__button" type="submit"></button>
+        <button
+          className="search-form__button"
+          type="submit"
+          disabled={props.isLoading ? true : false}
+        ></button>
       </form>
       {errors.search_query && (
         <span className="search-form__error">{errors.search_query.message}</span>

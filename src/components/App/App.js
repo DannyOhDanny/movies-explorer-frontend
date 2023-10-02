@@ -12,7 +12,21 @@ import Page404 from '../Page404/Page404';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
-import { SERVER_ERR, VALIDATION_ERR } from '../../utils/constants';
+import {
+  SERVER_ERR,
+  VALIDATION_ERR,
+  ROW_2,
+  ROW_3,
+  ROW_4,
+  ROW_5,
+  WIN_1279,
+  WIN_1278,
+  WIN_990,
+  WIN_989,
+  WIN_708,
+  WIN_707,
+  WIN_320
+} from '../../utils/constants';
 
 function App() {
   // Стейты фильмов
@@ -22,7 +36,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [movieIsNotFound, setMovieIsNotFound] = useState(false);
-
   // Стейты пользователя
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,17 +70,17 @@ function App() {
 
     window.addEventListener('resize', handleWindowResize);
 
-    if (windowSize[0].width >= 1279) {
-      setMoviesPerPage(4);
+    if (windowSize[0].width >= WIN_1279) {
+      setMoviesPerPage(ROW_4);
     }
-    if (windowSize[0].width <= 1278 && windowSize[0].width >= 990) {
-      setMoviesPerPage(3);
+    if (windowSize[0].width <= WIN_1278 && windowSize[0].width >= WIN_990) {
+      setMoviesPerPage(ROW_3);
     }
-    if (windowSize[0].width <= 989 && windowSize[0].width >= 708) {
-      setMoviesPerPage(2);
+    if (windowSize[0].width <= WIN_989 && windowSize[0].width >= WIN_708) {
+      setMoviesPerPage(ROW_2);
     }
-    if (windowSize[0].width <= 707 && windowSize[0].width >= 320) {
-      setMoviesPerPage(5);
+    if (windowSize[0].width <= WIN_707 && windowSize[0].width >= WIN_320) {
+      setMoviesPerPage(ROW_5);
     }
 
     return () => {
@@ -77,32 +90,32 @@ function App() {
 
   //Отображение одного ряда карточек при загрузке страницы
   useEffect(() => {
-    if (windowSize[0] >= 1279) {
-      setMoviesPerPage(4);
+    if (windowSize[0] >= WIN_1279) {
+      setMoviesPerPage(ROW_4);
     }
-    if (windowSize[0] <= 1278 && windowSize[0] >= 990) {
-      setMoviesPerPage(3);
+    if (windowSize[0] <= WIN_1278 && windowSize[0] >= WIN_990) {
+      setMoviesPerPage(ROW_3);
     }
-    if (windowSize[0] <= 989 && windowSize[0] >= 708) {
-      setMoviesPerPage(2);
+    if (windowSize[0] <= WIN_989 && windowSize[0] >= WIN_708) {
+      setMoviesPerPage(ROW_2);
     }
-    if (windowSize[0] <= 707 && windowSize[0] >= 320) {
-      setMoviesPerPage(5);
+    if (windowSize[0] <= WIN_707 && windowSize[0] >= WIN_320) {
+      setMoviesPerPage(ROW_5);
     }
   }, [windowSize]);
 
   // Загружаем установленное кол-во карточек, в зависимости от изменения размера окна, по клику кнопки ЕЩЕ
   const loadMore = () => {
-    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) >= 1279) {
+    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) >= WIN_1279) {
       setMoviesPerPage(moviesPerPage + 4);
     }
-    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= 1278) {
+    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= WIN_1278) {
       setMoviesPerPage(moviesPerPage + 3);
     }
-    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= 990) {
+    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= WIN_990) {
       setMoviesPerPage(moviesPerPage + 2);
     }
-    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= 707) {
+    if ((windowSizeChanged ? windowSize[0].width : windowSize[0]) <= WIN_707) {
       setMoviesPerPage(moviesPerPage + 1);
     }
   };
@@ -116,6 +129,23 @@ function App() {
     }
   }, [readLess, currentMoviePage.length, allMovies.length]);
 
+  function handleNavigate() {
+    if (location.pathname === '/movies' || '/saved-movies' || '/profile') {
+      navigate('/404', { replace: true });
+    }
+    if (location.pathname === '/signin') {
+      navigate('/signin', { replace: true });
+    }
+    if (location.pathname === '/signup') {
+      navigate('/signup', { replace: true });
+    }
+    if (location.pathname === '/') {
+      navigate('/', { replace: true });
+    }
+    if (location.pathname === '/*') {
+      navigate('/', { replace: true });
+    }
+  }
   //Проверка токена
   const checkToken = () => {
     mainApi
@@ -123,7 +153,6 @@ function App() {
       .then(res => {
         if (res) {
           setIsLoggedIn(true);
-          navigate('.', { relative: 'path' });
         }
         if (!res) {
           return;
@@ -131,10 +160,9 @@ function App() {
       })
       .catch(err => {
         setIsLoggedIn(false);
-        err.then(data => {
-          //ошибки с сервера -
-          setErrors(data.message);
-        });
+        //ошибки с сервера -
+        setErrors(err.message);
+        handleNavigate();
       })
       .finally(() => {
         setTimeout(() => {
@@ -158,35 +186,33 @@ function App() {
   }, [isLoggedIn, infoMessage]);
 
   // Сохранение в избранном
-  function handleSaveMovie(data, setIsLiked, setIsClicked) {
-    setIsLoading(true);
+  function handleSaveMovie(data, setIsLiked) {
     if (isLoggedIn) {
-      mainApi
-        .saveMovie(data)
-        .then(savedMovie => {
-          setSavedMovieList([savedMovie, ...savedMovieList]);
-          setInfoMessage(savedMovie.message);
-          setIsLiked(true);
-          setIsClicked(true);
-        })
-        .catch(err => {
-          err.then(data => {
+      setIsLoading(true);
+      if (isLoggedIn) {
+        mainApi
+          .saveMovie(data)
+          .then(savedMovie => {
+            setSavedMovieList([savedMovie, ...savedMovieList]);
+            setInfoMessage(savedMovie.message);
+            setIsLiked(true);
+          })
+          .catch(err => {
             //ошибки с сервера -
             setErrors(data.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              setErrors(null);
+              setInfoMessage(null);
+            }, 3000);
+            setIsLoading(false);
           });
-          console.log(err);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            setErrors(null);
-            setInfoMessage(null);
-          }, 3000);
-          setIsLoading(false);
-        });
+      }
     }
   }
   // Удаление из избранного
-  function handleMovieDelete(id, setIsLiked, setIsClicked) {
+  function handleMovieDelete(id, setIsLiked) {
     if (isLoggedIn) {
       setIsLoading(true);
       mainApi
@@ -196,7 +222,6 @@ function App() {
           setSavedMovieList(savedMovies);
           setInfoMessage(movie.message);
           setIsLiked(false);
-          setIsClicked(false);
         })
         .catch(err => {
           setErrors(err.statusCode);
@@ -213,22 +238,19 @@ function App() {
 
   // Отображение сохраненных фильмов
   useEffect(() => {
-    if (location.pathname === '/saved-movies' || location.pathname === '/movies') {
+    if (location.pathname === '/saved-movies') {
       mainApi
         .getSavedMovies()
         .then(data => {
           const myFavourites = data.movies.filter(el => el.owner === currentUser._id);
-          console.log(myFavourites, 'fav');
           setSavedMovieList(myFavourites.reverse());
           setTimeout(() => {
             setInfoMessage(data.message);
           }, 2000);
         })
         .catch(err =>
-          err.then(data => {
-            //ошибки с сервера
-            setErrors(data.message);
-          })
+          //ошибки с сервера
+          setErrors(err.message)
         )
         .finally(() => {
           setErrors(null);
@@ -236,7 +258,7 @@ function App() {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname, isLoggedIn]);
 
   function handleSaveSearch(query) {
     setSavedSearchQuery(query);
@@ -261,6 +283,7 @@ function App() {
           localStorage.setItem('query', JSON.stringify(query));
           localStorage.setItem('isChecked', JSON.stringify(isChecked));
           localStorage.setItem('movieSearchList', JSON.stringify(movieSearchList));
+          localStorage.setItem('allMovies', JSON.stringify(allMovies));
           setMovieQuery(query);
         })
         .catch(err => {
@@ -279,9 +302,10 @@ function App() {
     if (location.pathname === '/movies') {
       const query = JSON.parse(localStorage.getItem('query'));
       const isChecked = JSON.parse(localStorage.getItem('isChecked'));
-      setMovieQuery(movieQuery);
-      handleSearchQuery({ query }, isChecked);
-      setSavedMovieList(savedMovieList);
+      const search = JSON.parse(localStorage.getItem('movieSearchList'));
+      setMovieQuery(query);
+      setMovies(search ? search : allMovies);
+      setIsChecked(isChecked);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
@@ -293,7 +317,7 @@ function App() {
       setSavedMovieList(savedMovieList);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname === '/saved-movies', location.pathname]);
+  }, [location.pathname]);
 
   //Ф-ия регистрации пользователя
   function handleRegister(formValue, setErrorMessage, setInfo) {
@@ -309,12 +333,10 @@ function App() {
         setTimeout(() => {
           setInfo(data.message);
         }, 1000);
-        setTimeout(() => navigate('/signin', { replace: true }), 4000);
+        handleLogin({ email, password });
       })
-      .catch(error => {
-        error.then(data => {
-          setErrorMessage(data.message);
-        });
+      .catch(err => {
+        setErrors(err.message);
       })
       .finally(() => {
         setInfo(null);
@@ -341,12 +363,10 @@ function App() {
         navigate('/movies', { replace: true });
       })
       .catch(err => {
-        err.then(data => {
-          setErrorMessage(data.message);
-        });
+        setErrors(err.message);
       })
       .finally(() => {
-        setErrorMessage(null);
+        // setErrorMessage(null);
         setInfoMessage(null);
         setIsLoading(false);
       });
@@ -363,17 +383,19 @@ function App() {
           localStorage.removeItem('query');
           localStorage.removeItem('movieSearchList');
           localStorage.removeItem('isChecked');
+          localStorage.removeItem('allMovies');
+          window.sessionStorage.removeItem('lastRoute');
+          setMovies([]);
           setSavedMovieList([]);
           setMovieQuery('');
-          setIsLoggedIn(false);
           setCurrentUser('');
+          setIsLoggedIn(false);
+          navigate('/', { replace: true });
         }
       })
       .catch(err => {
-        err.then(data => {
-          //ошибки с сервера -
-          setErrors(data.message);
-        });
+        //ошибки с сервера -
+        setErrors(err.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -392,10 +414,8 @@ function App() {
           });
         })
         .catch(err => {
-          err.then(data => {
-            //ошибки с сервера -
-            setErrors(data.message);
-          });
+          //ошибки с сервера -
+          setErrors(err.message);
         });
     } else {
       return;
@@ -413,10 +433,8 @@ function App() {
         setInfo(data.message);
       })
       .catch(err => {
-        err.then(data => {
-          setErrors(data.message);
-          setErr(data.validation ? data.validation.body.message : '');
-        });
+        setErrors(err.message);
+        setErr(err.validation ? err.validation.body.message : '');
       })
       .finally(() => {
         setErrors(null);
@@ -441,7 +459,7 @@ function App() {
               isLoggedIn ? (
                 <Navigate to="/"></Navigate>
               ) : (
-                <Register onRegister={handleRegister} isLoading={isLoading} set />
+                <Register onRegister={handleRegister} isLoading={isLoading} errors={errors} set />
               )
             }
           />
@@ -452,7 +470,7 @@ function App() {
               isLoggedIn ? (
                 <Navigate to="/"></Navigate>
               ) : (
-                <Login handleLogin={handleLogin} isLoading={isLoading} set />
+                <Login handleLogin={handleLogin} isLoading={isLoading} errors={errors} set />
               )
             }
           />
@@ -460,6 +478,7 @@ function App() {
             path="/movies"
             element={
               <ProtectedRoute
+                redirectPath={'/movies'}
                 element={Movies}
                 allMovies={allMovies}
                 setMovies={setMovies}
@@ -488,6 +507,7 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute
+                redirectPath={'/saved-movies'}
                 element={SavedMovies}
                 savedMovieList={savedMovieList}
                 setSavedMovieList={setSavedMovieList}
@@ -510,6 +530,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute
+                redirectPath={'/profile'}
                 element={Profile}
                 onLogout={signOut}
                 onUpdateUser={handleUpdateUser}
@@ -520,7 +541,7 @@ function App() {
               ></ProtectedRoute>
             }
           />
-          <Route path="/*" element={<Page404 />} />
+          <Route path="/*" element={<Page404 isLoggedIn={isLoggedIn} />} />
         </Routes>
       </div>
     </CurrentUserContext.Provider>

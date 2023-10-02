@@ -106,7 +106,7 @@ function Register(props) {
   const isNameValid = Object.values(errors.name).some(Boolean);
   const isEmailValid = Object.values(errors.email).some(Boolean);
   const isPasswordValid = Object.values(errors.password).some(Boolean);
-  const isSubmitDisabled = isPasswordValid || isEmailValid || isNameValid;
+  const isSubmitDisabled = isPasswordValid || isEmailValid || isNameValid || props.isLoading;
   //Сохранение значений импутов по event в объект
   const handleChange = e => {
     const { name, value } = e.target;
@@ -265,6 +265,13 @@ function Register(props) {
             }
           >
             {errorMessage}
+          </span>
+          <span
+            className={
+              props.errors ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {props.errors}
           </span>
           <span
             className={
