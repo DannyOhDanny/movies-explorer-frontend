@@ -4,7 +4,7 @@ import '../Header/Header.css';
 import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
-function Header() {
+function Header(props) {
   const location = useLocation();
 
   if (location.pathname === '/') {
@@ -17,7 +17,7 @@ function Header() {
         <a className="header__logo-container" href="#about">
           <img className="header__logo" src={logo} alt="лого" />
         </a>
-        {<Navigation></Navigation>}
+        {<Navigation errors={props.errors} infoMessage={props.infoMessage}></Navigation>}
       </header>
     );
   } else {

@@ -2,9 +2,18 @@ import './ShowMoreButton.css';
 import React from 'react';
 
 function ShowMoreButton(props) {
-  return (
+  return props.movieIsNotFound ? (
+    ''
+  ) : (
     <div className="show-more">
-      <button className="show-more__button " aria-label="show-more" type="button">
+      <button
+        onClick={props.onShowMore}
+        className={
+          props.readLess ? ' show-more__button show-more__button_hidden' : 'show-more__button'
+        }
+        aria-label="show-more"
+        type="button"
+      >
         Ещё
       </button>
     </div>
