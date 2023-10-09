@@ -115,7 +115,12 @@ function Register(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    props.onRegister(formValue, setErrorMessage, setInfo);
+    props.onRegister(formValue, setErrorMessage, setInfo, setFormValue);
+    setFormValue({
+      name: '',
+      email: '',
+      password: ''
+    });
   };
 
   return (

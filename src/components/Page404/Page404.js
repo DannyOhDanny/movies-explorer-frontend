@@ -1,21 +1,15 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Page404.css';
 
 function Page404(props) {
   const navigate = useNavigate();
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname));
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // Обработка клика с данными из sessionStorage
   const goBack = () => {
     if (props.isLoggedIn) {
-      navigate(JSON.parse(window.sessionStorage.getItem('lastRoute')));
+      navigate(-1);
     } else {
       navigate('/');
     }

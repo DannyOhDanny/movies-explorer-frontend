@@ -89,7 +89,11 @@ function Login(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    props.handleLogin(formValue, setErrorMessage, setInfo);
+    props.handleLogin(formValue, setErrorMessage, setInfo, setFormValue);
+    setFormValue({
+      email: '',
+      password: ''
+    });
   };
   return (
     <Form

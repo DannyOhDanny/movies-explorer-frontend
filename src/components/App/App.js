@@ -342,11 +342,12 @@ function App() {
         setInfo(null);
         setErrorMessage(null);
         setIsLoading(false);
+        setErrors(null);
       });
   }
 
   // Функция авторизации пользователя
-  function handleLogin(formValue, setErrorMessage, setInfo) {
+  function handleLogin(formValue, setErrorMessage) {
     if (!formValue.email || !formValue.password) {
       setErrorMessage(VALIDATION_ERR);
       return;
@@ -360,6 +361,7 @@ function App() {
           setInfoMessage(data.message);
         }, 3000);
         setIsLoggedIn(true);
+
         navigate('/movies', { replace: true });
       })
       .catch(err => {
