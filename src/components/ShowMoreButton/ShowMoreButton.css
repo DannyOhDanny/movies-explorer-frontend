@@ -54,3 +54,7 @@
     left: 10px;
   }
 }
+
+.show-more__button_hidden {
+  visibility: hidden;
+}

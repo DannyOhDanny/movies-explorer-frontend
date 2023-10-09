@@ -32,7 +32,9 @@
   border-radius: 8px;
   border-style: none;
 }
-
+.form__area:disabled {
+  border: 1px solid #2be080;
+}
 .form__area:last-of-type {
   margin-bottom: 0;
 }
@@ -43,7 +45,7 @@
 }
 .form__error {
   display: flex;
-  margin: 4px 0 0 0;
+  margin: 1px 0 0 0;
   padding: 0;
   font-style: normal;
   font-weight: 400;
@@ -52,12 +54,18 @@
   color: #ff0000;
   border: none;
   opacity: 0;
-  transition: 3s opacity linear;
+  transition: 1s opacity linear;
 }
 
 .form__error_active {
   opacity: 1;
-  transform: 2s opacity linear;
+  transform: 1s opacity linear;
+}
+
+.form__error_active_green {
+  color: #2be080;
+  opacity: 1;
+  transform: 1s opacity linear;
 }
 
 @media screen and (min-width: 320px) and (max-width: 476px) {

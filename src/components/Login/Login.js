@@ -26,6 +26,10 @@ const validators = {
   }
 };
 function Login(props) {
+  // Стейты формы
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [info, setInfo] = useState(null);
+
   //Стейты импутов
   const [formValue, setFormValue] = useState({
     email: '',
@@ -68,15 +72,15 @@ function Login(props) {
         email: emailValidationResult,
         password: passwordValidationResult
       });
-
-      // console.log(emailValidationResult, passwordValidationResult, nameValidationResult);
     },
     //зависимости
     [formValue, setErrors]
   );
+
   const isEmailValid = Object.values(errors.email).some(Boolean);
   const isPasswordValid = Object.values(errors.password).some(Boolean);
-  const isSubmitDisabled = isPasswordValid || isEmailValid;
+  const isSubmitDisabled = isPasswordValid || isEmailValid || props.isLoading;
+
   //Сохранение значений импутов по event в объект
   const handleChange = e => {
     const { name, value } = e.target;
@@ -85,46 +89,35 @@ function Login(props) {
   //Обработка сабмита + вызов колбека из App
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formValue);
+    props.handleLogin(formValue, setErrorMessage, setInfo, setFormValue);
+    setFormValue({
+      email: '',
+      password: ''
+    });
   };
-
   return (
     <Form
       greetingTxt={'Рады видеть!'}
       btnName={'Войти'}
       actionTxt={'Еще не зарегистрированы?'}
       btnName2={'Регистрация'}
-      path={'/signup'}
       onSubmit={handleSubmit}
       isDisabled={isSubmitDisabled}
+      path={'/signup'}
     >
       <div className="form__box">
         <div className="form__container">
           <label className="form__label">E-mail</label>
           <input
             id="email-input"
-            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
-            placeholder="email@email.ru"
             name="email"
             type="email"
+            placeholder="email@email.ru"
+            className={isEmailValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'}
             onChange={handleChange}
             value={formValue.email}
+            disabled={props.isLoading ? true : false}
           ></input>
-        </div>
-        <div className="form__container">
-          <label className="form__label">Пароль</label>
-          <input
-            id="password-input"
-            className={
-              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
-            }
-            placeholder="пароль"
-            name="password"
-            type="password"
-            onChange={handleChange}
-            value={formValue.password}
-          ></input>
-
           {(errors.email.required || errors.password.required) && (
             <span
               className={
@@ -145,6 +138,32 @@ function Login(props) {
               Укажите электронный адрес в правильном формате
             </span>
           )}
+        </div>
+        <div className="form__container">
+          <label className="form__label">Пароль</label>
+          <input
+            id="password-input"
+            name="password"
+            type="password"
+            placeholder="пароль"
+            className={
+              isPasswordValid ? ['form__area', 'form__area_active'].join(' ') : 'form__area'
+            }
+            onChange={handleChange}
+            value={formValue.password}
+            disabled={props.isLoading ? true : false}
+          ></input>
+          {errors.password.required && (
+            <span
+              className={
+                errors.email.required || errors.password.required
+                  ? ['form__error', 'form__error_active'].join(' ')
+                  : ['form__error']
+              }
+            >
+              Обязательное поле
+            </span>
+          )}
           {errors.password.minLength && (
             <span
               className={
@@ -163,6 +182,36 @@ function Login(props) {
               Пароль должен состоять из цифр
             </span>
           )}
+          <span
+            className={
+              errorMessage ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {errorMessage}
+          </span>
+          <span
+            className={
+              props.errors ? ['form__error', 'form__error_active'].join(' ') : ['form__error']
+            }
+          >
+            {props.errors}
+          </span>
+          <span
+            className={
+              info ? ['form__error', 'form__error_active_green'].join(' ') : ['form__error']
+            }
+          >
+            {info}
+          </span>
+          <span
+            className={
+              props.infoMessage
+                ? ['form__error', 'form__error_active_green'].join(' ')
+                : ['form__error']
+            }
+          >
+            {props.infoMessage}
+          </span>
         </div>
       </div>
     </Form>
